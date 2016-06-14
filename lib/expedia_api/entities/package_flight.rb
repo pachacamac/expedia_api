@@ -27,6 +27,14 @@ module ExpediaApi
         end
       end
 
+      def price
+        if @raw_data[:FlightPrice] && @raw_data[:FlightPrice][:TotalRate]
+          Money.new(@raw_data[:FlightPrice][:TotalRate][:Value].to_f * 100, @raw_data[:FlightPrice][:TotalRate][:Currency])
+        else
+          nil
+        end
+      end
+
     end
   end
 end
