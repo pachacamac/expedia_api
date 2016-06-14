@@ -43,5 +43,18 @@ describe ExpediaApi::Entities::PackageHotel do
     end
   end
 
+  describe "#price" do
+    it "returns the total hotel price" do
+      price = 1234.79
+      assert_equal price, entity.price.to_f
+    end
+  end
+
+  describe "#promotion" do
+    it "returns the total promotion" do
+      assert_equal 304.58, entity.promotion.to_f
+    end
+  end
+
 
 end

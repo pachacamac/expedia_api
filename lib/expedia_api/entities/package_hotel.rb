@@ -20,6 +20,22 @@ module ExpediaApi
       def name
         raw_data[:Name]
       end
+
+      def price
+        if raw_data[:HotelPrice] && raw_data[:HotelPrice][:TotalRate]
+          Money.new(raw_data[:HotelPrice][:TotalRate][:Value].to_f * 100, raw_data[:HotelPrice][:TotalRate][:Currency])
+        else
+          nil
+        end
+      end
+
+      def promotion
+        if raw_data[:Promotion] && raw_data[:Promotion][:Amount]
+          Money.new(raw_data[:Promotion][:Amount][:Value].to_f * 100, raw_data[:Promotion][:Amount][:Currency])
+        else
+          nil
+        end
+      end
     end
   end
 end

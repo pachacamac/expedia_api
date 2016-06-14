@@ -114,6 +114,13 @@
                         "Value": "1234.79"
                     }
                 },
+                "Promotion": {
+                    "Amount": {
+                        "Currency": "EUR",
+                        "Value": "304.58"
+                    },
+                    "Description": "Jetzt buchen und sparen"
+                },
                 "Location": {
                     "City": "Sydney",
                     "Country": "AUS",
