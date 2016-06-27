@@ -25,6 +25,7 @@ module ExpediaApi
 
       def perform_request(request_options: {}, parameters: {}, uri:)
         args = common_parameters.merge(parameters)
+        request_options = request_options.merge(faraday_options)
         # figure out our options for this request
         # set up our Faraday connection
         connection = Faraday.new(faraday_options) do |faraday|

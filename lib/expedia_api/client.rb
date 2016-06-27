@@ -81,8 +81,8 @@ module ExpediaApi
     #     true
     #   description:
     #     return available hotels only. default: true
-    def search_hotels(parameters = {})
-      data = request(parameters: parameters, uri: 'wsapi/rest/hotel/v1/search')
+    def search_hotels(parameters = {}, request_options={})
+      data = request(parameters: parameters, uri: 'wsapi/rest/hotel/v1/search', request_options: request_options)
       ExpediaApi::ResponseLists::Hotels.new(response: data)
     rescue Faraday::ParsingError => e
       ExpediaApi::ResponseLists::Hotels.new(exception: e)
@@ -90,14 +90,14 @@ module ExpediaApi
       ExpediaApi::ResponseLists::Hotels.new(exception: e)
     end
 
-    def search_flights(from_date:, to_date:, from_airport:, to_airport:, other_options: {})
+    def search_flights(from_date:, to_date:, from_airport:, to_airport:, other_options: {}, request_options:{})
       parameters = {adult:1}.merge(other_options)
       path_uri = build_package_search_request_path(from_airport: from_airport, to_airport: to_airport, from_date: from_date, to_date: to_date)
       # build the url for the request to match the specifications
       path_uri = build_flight_search_request_path(from_airport: from_airport, to_airport: to_airport, from_date: from_date, to_date: to_date)
       base_uri = "/xmlapi/rest/air/v2/airsearch"
       full_uri = "#{base_uri}/#{path_uri}"
-      data = request(parameters: parameters, uri: full_uri)
+      data = request(parameters: parameters, uri: full_uri, request_options: request_options)
       ExpediaApi::ResponseLists::Flights.new(response: data)
     rescue Faraday::ParsingError => e
       ExpediaApi::ResponseLists::Flights.new(exception: e)
@@ -105,7 +105,7 @@ module ExpediaApi
       ExpediaApi::ResponseLists::Flights.new(exception: e)
     end
 
-    def search_packages(hotel_ids: [], region_ids: [], from_date:, to_date:, from_airport:, to_airport:, piid: nil, other_options: {})
+    def search_packages(hotel_ids: [], region_ids: [], from_date:, to_date:, from_airport:, to_airport:, piid: nil, other_options: {}, request_options:{})
       # convert/validate the parameters. the api expects a comma separated
       # string.
       hotel_ids  = hotel_ids.join(",") if hotel_ids.is_a?(Array) && hotel_ids.any?
@@ -119,7 +119,7 @@ module ExpediaApi
       path_uri = build_package_search_request_path(from_airport: from_airport, to_airport: to_airport, from_date: from_date, to_date: to_date)
       base_uri = "/wsapi/rest/package/v1/search"
       full_uri = "#{base_uri}/#{path_uri}"
-      data = request(parameters: parameters, uri: full_uri)
+      data = request(parameters: parameters, uri: full_uri, request_options: request_options)
       ExpediaApi::ResponseLists::Packages.new(response: data)
     rescue Faraday::ParsingError => e
       ExpediaApi::ResponseLists::Packages.new(exception: e)
