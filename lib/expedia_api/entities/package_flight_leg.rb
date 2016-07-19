@@ -74,11 +74,7 @@ module ExpediaApi
       def total_duration_seconds
         hours   = hours_all_segments
         minutes = minutes_all_segments
-        if hours && minutes
-          hours * 3600 + minutes * 60
-        else
-          0
-        end
+        hours * 3600 + minutes * 60
       end
 
       # returns the hours of the flight, if nor parsable, returns nil
@@ -86,7 +82,7 @@ module ExpediaApi
         stamp = @raw_data[:FlightDuration].split("PT")[1]
         stamp.split("H")[0].to_i
       rescue
-        nil
+        0
       end
 
       # returns the minutes of the flight, if nor parsable, returns nil
@@ -94,7 +90,7 @@ module ExpediaApi
         stamp = @raw_data[:FlightDuration].split("PT")[1]
         stamp.split("H")[1].split("M")[0].to_i
       rescue
-        nil
+        0
       end
 
       # returns the index of the flight leg
