@@ -56,5 +56,17 @@ describe ExpediaApi::Entities::PackageHotel do
     end
   end
 
+  describe "#room_type_description" do
+    it "returns a string or nil" do
+      assert_equal true, [NilClass, String].include?(entity.room_type_description.class)
+    end
+  end
+
+  describe "#room_amenity_list" do
+    it "returns an array" do
+      assert_equal Array, entity.room_amenity_list.class
+    end
+  end
+
 
 end
