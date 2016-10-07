@@ -24,7 +24,7 @@ describe ExpediaApi::Entities::SearchEntity do
 
   describe "total_price_including_taxes" do
     it "returns the total price if there is one in the JSON data" do
-      assert_equal 567.54, entity.total_price_including_taxes
+      assert_equal 589.04, entity.total_price_including_taxes
     end
     it "returns nil if there is no price in the data" do
       entity.raw_data[:Price] = {}

@@ -21,11 +21,16 @@ module ExpediaApi
 
       def total_price_including_taxes
         if available?
-          raw_data[:Price][:TotalRate][:Value].to_f
+          if payment_method && payment_method == "Online"
+            raw_data[:Price][:TotalRate][:Value].to_f + hotel_mandatory_taxes_and_fees
+          else
+            raw_data[:Price][:TotalRate][:Value].to_f
+          end
         else
           nil
         end
       end
+
 
       def hotel_mandatory_taxes_and_fees
         if raw_data[:HotelMandatoryTaxesAndFees] && raw_data[:HotelMandatoryTaxesAndFees][:Value]
@@ -38,6 +43,14 @@ module ExpediaApi
       def hotel_mandatory_taxes_and_fees_currency
         if raw_data[:HotelMandatoryTaxesAndFees] && raw_data[:HotelMandatoryTaxesAndFees][:Currency]
           raw_data[:HotelMandatoryTaxesAndFees][:Currency]
+        else
+          nil
+        end
+      end
+
+      def payment_method
+        if raw_data[:RoomTypeList] && raw_data[:RoomTypeList][:RoomType] && raw_data[:RoomTypeList][:RoomType][:PaymentMethod]
+          raw_data[:RoomTypeList][:RoomType][:PaymentMethod]
         else
           nil
         end
