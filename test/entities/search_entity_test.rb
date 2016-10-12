@@ -36,9 +36,9 @@ describe ExpediaApi::Entities::SearchEntity do
     it "returns the data from the json" do
       assert_equal 21.50, entity.hotel_mandatory_taxes_and_fees
     end
-    it "returns nil if there is no value provided" do
+    it "returns 0 if there is no value provided" do
       entity.raw_data[:HotelMandatoryTaxesAndFees] = {}
-      assert_equal nil, entity.hotel_mandatory_taxes_and_fees
+      assert_equal 0, entity.hotel_mandatory_taxes_and_fees
     end
   end
 

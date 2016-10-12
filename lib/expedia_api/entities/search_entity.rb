@@ -36,7 +36,7 @@ module ExpediaApi
         if raw_data[:HotelMandatoryTaxesAndFees] && raw_data[:HotelMandatoryTaxesAndFees][:Value]
           raw_data[:HotelMandatoryTaxesAndFees][:Value].to_f
         else
-          nil
+          0.0
         end
       end
 
