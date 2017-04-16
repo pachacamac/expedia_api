@@ -33,7 +33,7 @@ config/initializers/expedia_api.rb
 Set the API key:
 
 ```
-Expedia.api_key = 'my_api_key'
+ExpediaApi.api_key = 'my_api_key'
 
 ```
 
